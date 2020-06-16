@@ -21,9 +21,7 @@ public class MainServlet extends HttpServlet {
 		res.getWriter().append("Served at: ").append(req.getContextPath());
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String operation = req.getParameter("operation");
@@ -39,14 +37,14 @@ public class MainServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-			if(result.equals("SUCCESS")){
+			if(result==null||result.equals("FAILURE")){
+				RequestDispatcher rd = req.getRequestDispatcher("Failure.html");
+				rd.include(req, res);
+			}
+			else if(result.equals("SUCCESS")){
 				RequestDispatcher rd = req.getRequestDispatcher("Menu.html");
 				rd.include(req, res);  
-			}
-			else if(result.equals("FAILURE")){
-				RequestDispatcher rd = req.getRequestDispatcher("Failure.html");
-				rd.include(req, res); 
-			}
+			} 
 			else{
 				RequestDispatcher rd = req.getRequestDispatcher("Invalid.html");
 				rd.include(req, res); 
