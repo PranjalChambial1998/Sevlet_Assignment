@@ -1,0 +1,19 @@
+create table Author_Tbl (
+Author_code number(5) primary key,
+Author_name varchar2(20) not null,
+Contact_no number(10)
+)
+
+create table Book_Tbl (
+ISBN varchar2(10) primary key,
+Book_title varchar2(20) not null,
+Book_type char(1),
+Author_code number(5) not null,
+Book_cost number(15,2) not null,
+constraint bk_ck check(Book_type='T' or Book_type='G'),
+constraint au_fk foreign key(Author_code) references Author_Tbl (Author_code)
+)
+
+insert into Author_Tbl values (1,'RobinSharma',8800799224)
+insert into Author_Tbl values (2,'R.K.Narayan',8800799255)
+insert into Author_Tbl values (3,'Paulo',8800799775)
